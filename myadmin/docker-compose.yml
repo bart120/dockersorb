@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  database:
+    container-name: mysql-cont
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=vbob
+      - MYSQL_DATABASE=testdb
+      - MYSQL_USER=toto
+      - MYSQL_PASSWORD=bob
+  restart: always
