@@ -12,10 +12,10 @@ services:
     container_name: mysql-cont
     image: mysql:latest
     environment:
-      - MYSQL_ROOT_PASSWORD=vbob
-      - MYSQL_DATABASE=testdb
-      - MYSQL_USER=toto
-      - MYSQL_PASSWORD=bob
+      - MYSQL_ROOT_PASSWORD=${ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
     restart: always
     networks:
       - backend
@@ -38,9 +38,9 @@ services:
       - 8080:80
     environment:
       - WORDPRESS_DB_HOST=database
-      - WORDPRESS_DB_NAME=testdb
-      - WORDPRESS_DB_USER=toto
-      - WORDPRESS_DB_PASSWORD=bob
+      - WORDPRESS_DB_NAME=${DB_NAME}
+      - WORDPRESS_DB_USER=${DB_USER}
+      - WORDPRESS_DB_PASSWORD=${DB_PASSWORD}
     networks:
       - backend
       - frontend
