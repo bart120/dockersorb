@@ -1,8 +1,15 @@
 version: '3.9'
 
+networks:
+  backend:
+    name: network-backend
+    external: false
+  frontend:
+    name: network-front
+
 services:
   database:
-    #container-name: mysql-cont
+    container_name: mysql-cont
     image: mysql:latest
     environment:
       - MYSQL_ROOT_PASSWORD=vbob
@@ -10,3 +17,32 @@ services:
       - MYSQL_USER=toto
       - MYSQL_PASSWORD=bob
     restart: always
+    networks:
+      - backend
+    volumes:
+      - D:\docker\database:/var/lib/mysql
+  phpmyadmin:
+    container_name: admin-cont
+    image: phpmyadmin:latest
+    environment:
+      - PMA_HOST=database
+    ports:
+      - 8081:80
+    restart: always
+    networks:
+      - backend
+      - frontend
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - 8080:80
+    environment:
+      - WORDPRESS_DB_HOST=database
+      - WORDPRESS_DB_NAME=testdb
+      - WORDPRESS_DB_USER=toto
+      - WORDPRESS_DB_PASSWORD=bob
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - database
