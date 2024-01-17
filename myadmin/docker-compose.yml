@@ -46,3 +46,14 @@ services:
       - frontend
     depends_on:
       - database
+    deploy:
+      mode: replicated
+      replicas: 4
+      endpoint_mode: vip
+      resources:
+        limits:
+          cpus: '0.50'
+          pids: 1
+        reservations:
+          cpus: '0.25'
+          memory: 20M
